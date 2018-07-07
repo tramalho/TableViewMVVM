@@ -23,14 +23,25 @@ protocol ProfileViewModelItem {
     var rowCount: Int { get }
 }
 
+protocol ProfileViewModelDelegate: class {
+    func didFinishUpdates()
+}
+
 class ProfileViewModel: NSObject {
     var items = [ProfileViewModelItem]()
+    weak var delegate: ProfileViewModelDelegate?
     
     override init() {
         super.init()
+    }
+    
+    func loadData() {
+        
         guard let data = dataFromFile("ServerData"), let profile = Profile(data: data) else {
             return
         }
+        
+        items.removeAll()
         
         if let name = profile.fullName, let pictureUrl = profile.pictureUrl {
             let nameAndPictureItem = ProfileViewModelNamePictureItem(name: name, pictureUrl: pictureUrl)
@@ -57,7 +68,9 @@ class ProfileViewModel: NSObject {
         if !profile.friends.isEmpty {
             let friendsItem = ProfileViewModeFriendsItem(friends: friends)
             items.append(friendsItem)
-        }        
+        }
+        
+        delegate?.didFinishUpdates()
     }
 }
 

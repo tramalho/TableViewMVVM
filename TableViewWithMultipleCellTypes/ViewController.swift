@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.delegate = self
+
         tableView?.dataSource = viewModel
         
         tableView?.estimatedRowHeight = 100
@@ -27,5 +29,13 @@ class ViewController: UIViewController {
         tableView?.register(FriendCell.nib, forCellReuseIdentifier: FriendCell.identifier)
         tableView?.register(AttributeCell.nib, forCellReuseIdentifier: AttributeCell.identifier)
         tableView?.register(EmailCell.nib, forCellReuseIdentifier: EmailCell.identifier)
+        
+        viewModel.loadData()
+    }
+}
+
+extension ViewController: ProfileViewModelDelegate {
+    func didFinishUpdates() {
+        tableView?.reloadData()
     }
 }
