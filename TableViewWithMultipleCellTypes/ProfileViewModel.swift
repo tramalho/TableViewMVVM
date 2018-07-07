@@ -75,7 +75,7 @@ class ProfileViewModel: NSObject {
             let friendsItem = ProfileViewModeFriendsItem(friends: friends)
             items.append(friendsItem)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
             self.isLoading = false
             self.delegate?.didFinishUpdates()
         })
