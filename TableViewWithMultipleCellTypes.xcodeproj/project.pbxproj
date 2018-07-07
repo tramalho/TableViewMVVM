@@ -25,6 +25,7 @@
 		36C0EC911EB00C4A0039B330 /* ServerData.json in Resources */ = {isa = PBXBuildFile; fileRef = 36C0EC901EB00C4A0039B330 /* ServerData.json */; };
 		36C0EC931EB00C710039B330 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C0EC921EB00C710039B330 /* ProfileModel.swift */; };
 		36C0EC951EB00E290039B330 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C0EC941EB00E290039B330 /* ProfileViewModel.swift */; };
+		37EF1C1C20F109F300711D1A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EF1C1B20F109F300711D1A /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		36C0EC901EB00C4A0039B330 /* ServerData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ServerData.json; sourceTree = "<group>"; };
 		36C0EC921EB00C710039B330 /* ProfileModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		36C0EC941EB00E290039B330 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		37EF1C1B20F109F300711D1A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				36C0EC8A1EB00BFC0039B330 /* Info.plist */,
 				36C0EC921EB00C710039B330 /* ProfileModel.swift */,
 				36C0EC941EB00E290039B330 /* ProfileViewModel.swift */,
+				37EF1C1B20F109F300711D1A /* Extensions.swift */,
 			);
 			path = TableViewWithMultipleCellTypes;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				367B20141ED209D9000F2BFA /* FriendCell.swift in Sources */,
+				37EF1C1C20F109F300711D1A /* Extensions.swift in Sources */,
 				36C0EC931EB00C710039B330 /* ProfileModel.swift in Sources */,
 				367B20181ED20BC0000F2BFA /* AttributeCell.swift in Sources */,
 				36C0EC811EB00BFC0039B330 /* ViewController.swift in Sources */,

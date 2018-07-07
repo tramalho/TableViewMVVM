@@ -31,17 +31,23 @@ class ProfileViewModel: NSObject {
     var items = [ProfileViewModelItem]()
     weak var delegate: ProfileViewModelDelegate?
     
+    private var isLoading = false
+    
     override init() {
         super.init()
     }
     
     func loadData() {
         
-        guard let data = dataFromFile("ServerData"), let profile = Profile(data: data) else {
+        if(isLoading){
             return
         }
         
-        items.removeAll()
+        guard let data = dataFromFile("ServerData"), let profile = Profile(data: data) else {
+            return
+        }
+
+        isLoading = true
         
         if let name = profile.fullName, let pictureUrl = profile.pictureUrl {
             let nameAndPictureItem = ProfileViewModelNamePictureItem(name: name, pictureUrl: pictureUrl)
@@ -69,58 +75,12 @@ class ProfileViewModel: NSObject {
             let friendsItem = ProfileViewModeFriendsItem(friends: friends)
             items.append(friendsItem)
         }
-        
-        delegate?.didFinishUpdates()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            self.isLoading = false
+            self.delegate?.didFinishUpdates()
+        })
     }
 }
-
-extension ProfileViewModel: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return items.count
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items[section].rowCount
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = items[indexPath.section]
-        switch item.type {
-        case .nameAndPicture:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: NamePictureCell.identifier, for: indexPath) as? NamePictureCell {
-                cell.item = item
-                return cell
-            }
-        case .about:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: AboutCell.identifier, for: indexPath) as? AboutCell {
-                cell.item = item
-                return cell
-            }
-        case .email:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: EmailCell.identifier, for: indexPath) as? EmailCell {
-                cell.item = item
-                return cell
-            }
-        case .friend:
-            if let item = item as? ProfileViewModeFriendsItem, let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.identifier, for: indexPath) as? FriendCell {
-                let friend = item.friends[indexPath.row]
-                cell.item = friend
-                return cell
-            }
-        case .attribute:
-            if let item = item as? ProfileViewModeAttributeItem, let cell = tableView.dequeueReusableCell(withIdentifier: AttributeCell.identifier, for: indexPath) as? AttributeCell {
-                cell.item = item.attributes[indexPath.row]
-                return cell
-            }
-        }
-        return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return items[section].sectionTitle
-    }
-}
-
 
 class ProfileViewModelNamePictureItem: ProfileViewModelItem {
     var type: ProfileViewModelItemType {

@@ -19,6 +19,8 @@ class ViewController: UIViewController {
         
         viewModel.delegate = self
 
+        tableView?.delegate = viewModel
+        
         tableView?.dataSource = viewModel
         
         tableView?.estimatedRowHeight = 100
@@ -30,12 +32,19 @@ class ViewController: UIViewController {
         tableView?.register(AttributeCell.nib, forCellReuseIdentifier: AttributeCell.identifier)
         tableView?.register(EmailCell.nib, forCellReuseIdentifier: EmailCell.identifier)
         
+        let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        spinner.startAnimating()
+        spinner.frame = CGRect(x: 0, y: 0, width: (tableView?.frame.width)!, height: 44)
+        tableView?.tableFooterView = spinner;
+        
+        loadData()
+    }
+    
+    func loadData() {
         viewModel.loadData()
     }
+    
+    
 }
 
-extension ViewController: ProfileViewModelDelegate {
-    func didFinishUpdates() {
-        tableView?.reloadData()
-    }
-}
+
