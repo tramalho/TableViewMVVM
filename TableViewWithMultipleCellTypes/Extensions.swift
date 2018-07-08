@@ -74,15 +74,6 @@ extension ProfileViewModel: UITableViewDelegate {
             loadData()
         }
     }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let y = scrollView.contentOffset.y
-        let height = scrollView.contentSize.height
-        
-        if y > height - scrollView.frame.height {
-            loadData()
-        }
-    }
 }
 
 
